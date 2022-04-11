@@ -24,6 +24,7 @@ public class TestBase {
 
 	@AfterSuite
 	public void afterSuite() {
+		driverManager.getdriverInstance().quit();
 	}
 
 }
