@@ -2,6 +2,8 @@ package com.aspire.test;
 
 import org.testng.annotations.Test;
 
+import com.aspire.constants.ManufacturingState;
+import com.aspire.manager.DriverManager;
 import com.aspire.model.config.AppSettings;
 import com.aspire.model.pageobject.HomePage;
 import com.aspire.model.pageobject.InventoryPage;
@@ -10,11 +12,15 @@ import com.aspire.model.pageobject.ManufacturingPage;
 import com.aspire.model.pageobject.ProductPage;
 import com.aspire.utils.RandomNameGenerator;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 
 public class TestCases extends TestBase{
@@ -35,7 +41,7 @@ public class TestCases extends TestBase{
 		inventoryPage = new InventoryPage(driverManager);
 		productPage = new ProductPage(driverManager);
 		manufacturingPage = new ManufacturingPage(driverManager);
-		wait = new WebDriverWait(driver, 15);
+		wait = new WebDriverWait(driver, 30);
 	}
 	
 	@Test(priority=0)
@@ -90,34 +96,37 @@ public class TestCases extends TestBase{
 		homePage.clickButton(homePage.getManufacturing());
 		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getManufacturingOrderHeading()));
 		manufacturingPage.clickButton(manufacturingPage.getCreateNewManufacturingOrderButton());
-		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getNewManufacturingOrderHeading()));
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getNewManufacturingOrderReference()));
 		manufacturingPage.enterProductName(RandomNameGenerator.getRandomProductName());
-		manufacturingPage.selectProductNameFromDropDown();
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getSaveManufacturingOrderButton()));
 		manufacturingPage.clickButton(manufacturingPage.getSaveManufacturingOrderButton());
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getCreateButton()));
 	}
 	
 	@Test(priority=6)
 	public void updateManufacturingOrderStatus(){
-		
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getConfirmStatusButton()));
 		manufacturingPage.clickButton(manufacturingPage.getConfirmStatusButton());
-		WebElement doneStatusButton = wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getDoneStatusButton()));
-		manufacturingPage.clickButton(doneStatusButton);
+		wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(manufacturingPage.getDoneStatusButton())));
+		manufacturingPage.clickButton(manufacturingPage.getDoneStatusButton());
 		WebElement confirmationButton = wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getConfirmationPopupButton()));
 		manufacturingPage.clickButton(confirmationButton);
 		WebElement immediateProductionConfirmButton = wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getImmediateProductionConfirmButton()));
 		manufacturingPage.clickButton(immediateProductionConfirmButton);
 		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getEditButton()));
-		manufacturingPage.manufacturingReferenceNumber = manufacturingPage.getManufacturingOrderHeading().getText();
+		manufacturingPage.manufacturingReferenceNumber = manufacturingPage.getNewManufacturingOrderReference().getText();
 	}
 	
 	@Test(priority=7)
 	public void validateOrderDetails()
 	{
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getManufacturingHomePageLink()));
 		manufacturingPage.clickButton(manufacturingPage.getManufacturingHomePageLink());
 		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getManufacturingOrderHeading()));
 		manufacturingPage.clickButton(manufacturingPage.getRemoveFilter());
-		
-		
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[text()='"+manufacturingPage.manufacturingReferenceNumber + "']")));
+	    String manufacturingState = manufacturingPage.getManufacturingState(manufacturingPage.manufacturingReferenceNumber);
+	    Assert.assertEquals(manufacturingState, ManufacturingState.Done.toString());		
 	}
 
 }
