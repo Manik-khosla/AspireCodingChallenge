@@ -11,10 +11,13 @@ import org.json.simple.parser.ParseException;
 import com.aspire.model.config.AppSettings;
 
 public class AppConfig {
-
-	public void readAppConfig(){
+    
+	/**
+	 *  Read App Configuration from Config.json File And setting Properties for Running Test Suite
+	 */
+	public void readAppConfig() {
 		JSONParser parser = new JSONParser();
-	    try {
+		try {
 			JSONObject config = (JSONObject) parser.parse(new FileReader(AppSettings.appConfigFilePath));
 			AppSettings.setBaseUrl(config.get("base_url"));
 			AppSettings.setUserName(config.get("username"));

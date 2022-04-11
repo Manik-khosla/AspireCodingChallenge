@@ -9,56 +9,55 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.aspire.manager.DriverManager;
 
-public class ManufacturingPage extends BasePage{
-	
+public class ManufacturingPage extends BasePage {
+
 	private DriverManager manager;
-	
+
 	public static String manufacturingReferenceNumber;
-	
-	@FindBy(xpath="//span[text()='Manufacturing Orders']")
+
+	@FindBy(xpath = "//span[text()='Manufacturing Orders']")
 	private WebElement manufacturingOrderHeading;
-	
-	@FindBy(xpath="//button[@data-original-title='Create record']")
+
+	@FindBy(xpath = "//button[@data-original-title='Create record']")
 	private WebElement createNewManufacturingOrderButton;
-	
-	@FindBy(xpath="//span[@placeholder='Manufacturing Reference']")
+
+	@FindBy(xpath = "//span[@placeholder='Manufacturing Reference']")
 	private WebElement newManufacturingOrderReference;
-	
-	@FindBy(xpath="//input[@id='o_field_input_210']")
+
+	@FindBy(xpath = "//input[@id='o_field_input_210']")
 	private WebElement productTextField;
-	
-	@FindBy(xpath ="//button[@title='Save record']")
+
+	@FindBy(xpath = "//button[@title='Save record']")
 	private WebElement saveManufacturingOrderButton;
-	
-	@FindBy(xpath ="//button[@title='Create record']")
+
+	@FindBy(xpath = "//button[@title='Create record']")
 	private WebElement createButton;
-	
-	@FindBy(xpath ="//span[text()='Confirm']")
+
+	@FindBy(xpath = "//span[text()='Confirm']")
 	private WebElement confirmStatusButton;
-	
-	@FindBy(xpath="//div[@class='o_statusbar_buttons']/button[4]/span")
+
+	@FindBy(xpath = "//div[@class='o_statusbar_buttons']/button[4]/span")
 	private WebElement doneStatusButton;
-	
-	@FindBy(xpath="//span[text()='Ok']")
+
+	@FindBy(xpath = "//span[text()='Ok']")
 	private WebElement confirmationPopupButton;
-	
-	@FindBy(xpath="//button[@name='process']")
+
+	@FindBy(xpath = "//button[@name='process']")
 	private WebElement immediateProductionConfirmButton;
-	
-	@FindBy(xpath="//button[@title='Edit record']")
+
+	@FindBy(xpath = "//button[@title='Edit record']")
 	private WebElement editButton;
-	
-	@FindBy(xpath="//a[text()='Manufacturing Orders']")
+
+	@FindBy(xpath = "//a[text()='Manufacturing Orders']")
 	private WebElement manufacturingHomePageLink;
-	
-	@FindBy(xpath="//i[@title='Remove']")
+
+	@FindBy(xpath = "//i[@title='Remove']")
 	private WebElement removeFilter;
-	
-	@FindBy(xpath="//div[@class='o_loading_indicator']")
-	private WebElement loadingIndicator; 
-	
-	
-	public ManufacturingPage(DriverManager manager){
+
+	@FindBy(xpath = "//div[@class='o_loading_indicator']")
+	private WebElement loadingIndicator;
+
+	public ManufacturingPage(DriverManager manager) {
 		this.manager = manager;
 		PageFactory.initElements(manager.getdriverInstance(), this);
 	}
@@ -78,8 +77,8 @@ public class ManufacturingPage extends BasePage{
 	public WebElement getProductTextField() {
 		return productTextField;
 	}
-	
-	public void enterProductName(String productName){
+
+	public void enterProductName(String productName) {
 		productTextField.sendKeys(productName);
 		productTextField.click();
 		productTextField.sendKeys(Keys.ENTER);
@@ -136,11 +135,12 @@ public class ManufacturingPage extends BasePage{
 	public WebElement getLoadingIndicator() {
 		return loadingIndicator;
 	}
-	
-	public String getManufacturingState(String manufacturingRefernceNumber){
-		String state = DriverManager.getdriverInstance().findElement(By.xpath("//td[text()='"+ manufacturingRefernceNumber + "']/parent::tr/td[11]/span")).getText();
+
+	public String getManufacturingState(String manufacturingRefernceNumber) {
+		String state = DriverManager.getdriverInstance()
+				.findElement(By.xpath("//td[text()='" + manufacturingRefernceNumber + "']/parent::tr/td[11]/span"))
+				.getText();
 		return state;
 	}
-	
-	
+
 }

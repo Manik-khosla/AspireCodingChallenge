@@ -1,19 +1,21 @@
 package com.aspire.model.config;
 
 public class AppSettings {
-	
-	public static final String appConfigFilePath= System.getProperty("user.dir")+"\\src\\config.json";
-	
+
 	private static String baseUrl;
-	
+
 	private static String userName;
 
 	private static String password;
-	
+
 	private static String browser;
-	
+
 	private static String property;
-	
+
+	private static String driverPath;
+
+	public static final String appConfigFilePath = System.getProperty("user.dir") + "\\src\\config.json";
+
 	public static String getProperty() {
 		return property;
 	}
@@ -21,8 +23,6 @@ public class AppSettings {
 	public static void setProperty(Object object) {
 		AppSettings.property = (String) object;
 	}
-
-	private static String driverPath;
 
 	public static String getBaseUrl() {
 		return baseUrl;
@@ -63,6 +63,4 @@ public class AppSettings {
 	public static void setDriverPath(Object driverPath) {
 		AppSettings.driverPath = (String) driverPath;
 	}
-	
-	
 }

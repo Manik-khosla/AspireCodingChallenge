@@ -1,8 +1,8 @@
 {
-"base_url":"https://aspireapp.odoo.com/",
-"username":"user@aspireapp.com",
-"password":"@sp1r3app",
-"browser":"CHROME",
-"property":"webdriver.chrome.driver",
-"driver_path":"C:\\selenium\\chromedriver_win32\\chromedriver.exe"
+	"base_url": "https://aspireapp.odoo.com/",
+	"username": "user@aspireapp.com",
+	"password": "@sp1r3app",
+	"browser": "CHROME",
+	"property": "webdriver.chrome.driver",
+	"driver_path": "C:\\selenium\\chromedriver_win32\\chromedriver.exe"
 }
