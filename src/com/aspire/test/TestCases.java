@@ -107,7 +107,8 @@ public class TestCases extends TestBase{
 	public void updateManufacturingOrderStatus(){
 		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getConfirmStatusButton()));
 		manufacturingPage.clickButton(manufacturingPage.getConfirmStatusButton());
-		wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(manufacturingPage.getDoneStatusButton())));
+		driver.navigate().refresh();
+		wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getDoneStatusButton()));
 		manufacturingPage.clickButton(manufacturingPage.getDoneStatusButton());
 		WebElement confirmationButton = wait.until(ExpectedConditions.visibilityOf(manufacturingPage.getConfirmationPopupButton()));
 		manufacturingPage.clickButton(confirmationButton);

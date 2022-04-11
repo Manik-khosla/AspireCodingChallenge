@@ -105,6 +105,10 @@ public class ManufacturingPage extends BasePage{
 		return doneStatusButton;
 	}
 
+	public void setDoneStatusButton(WebElement doneStatusButton) {
+		this.doneStatusButton = doneStatusButton;
+	}
+
 	public WebElement getConfirmationPopupButton() {
 		return confirmationPopupButton;
 	}
